@@ -45,13 +45,7 @@ public class Main {
                     new ArrayList<>();
             for(int i = 0 ; i < separatedRelevantDocContent.length ; i++){
                 if(separatedRelevantDocContent[i].toUpperCase().contains(query.toUpperCase())){
-                    if(!(separatedRelevantDocContent[i-1].isEmpty())){
-                        preFilteredRelevantDocContents.add(separatedRelevantDocContent[i-1]);
-                    }
                     preFilteredRelevantDocContents.add(separatedRelevantDocContent[i]);
-                    if(!(separatedRelevantDocContent[i+1].isEmpty())){
-                        preFilteredRelevantDocContents.add(separatedRelevantDocContent[i+1]);
-                    }
                 }
             }
             filteredRelevantDocContents.add(preFilteredRelevantDocContents);
