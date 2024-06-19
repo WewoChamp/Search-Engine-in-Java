@@ -17,7 +17,7 @@ public class Main {
         ArrayList<String> docContents = Utilities.getDocContents(documents);
 
         query = args[0];
-        System.out.printf("The search query was %s\n", query);
+        System.out.printf("The search query was \"%s\"\n", query);
 
         ArrayList<String> relevantDocNames = new ArrayList<>();
         for(String docName : docNames) {
@@ -84,6 +84,10 @@ public class Main {
                     System.out.println("- " + associatedRelevantDocNames.get(i) + " " + filteredRelevantDocContents.get(i));
                 }
             }
+
+            if((relevantDocNames.isEmpty()) && (filteredRelevantDocContents.isEmpty())){
+                System.out.println("No results found.");
+            }
         }
 
         else{
@@ -142,6 +146,10 @@ public class Main {
                 for (int i = 0; i < filteredRelevantDocContents.size(); i++) {
                     System.out.println("- " + associatedRelevantDocNames.get(i) + " " + filteredRelevantDocContents.get(i));
                 }
+            }
+
+            if((relevantDocNames.isEmpty()) && (filteredRelevantDocContents.isEmpty())){
+                System.out.println("No results found.");
             }
         }
 
