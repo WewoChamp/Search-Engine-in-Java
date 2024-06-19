@@ -113,12 +113,36 @@ public class Main {
 
                     for(String finalPreFilteredRelevantDocContent : finalPreFilteredRelevantDocContents){
                         if(finalPreFilteredRelevantDocContent.toUpperCase().contains(query.toUpperCase())){
-                            polishedPreFilteredRelevantDocContents.add(finalPreFilteredRelevantDocContent);
+                            polishedPreFilteredRelevantDocContents.add(finalPreFilteredRelevantDocContent.trim());
                         }
                     }
                     filteredRelevantDocContents.add(polishedPreFilteredRelevantDocContents);
             }
-            System.out.println(filteredRelevantDocContents);
+
+            ArrayList<String> associatedRelevantDocNames = new ArrayList<>();
+            for (ArrayList<String> filteredRelevantDocContent :
+                    filteredRelevantDocContents) {
+                int i = 0;
+                int k = 0;
+                for (String docName : documents.keySet()) {
+                    for (String relevantDocContent : filteredRelevantDocContent) {
+                        if (documents.get(docName).toUpperCase().contains(relevantDocContent.toUpperCase())) {
+                            k++;
+                        }
+                    }
+                    if (k > i) {
+                        i = k;
+                        associatedRelevantDocNames.add(docName);
+                    }
+                }
+            }
+
+            if (!(filteredRelevantDocContents.isEmpty())) {
+                System.out.println("Contents:");
+                for (int i = 0; i < filteredRelevantDocContents.size(); i++) {
+                    System.out.println("- " + associatedRelevantDocNames.get(i) + " " + filteredRelevantDocContents.get(i));
+                }
+            }
         }
 
     }
