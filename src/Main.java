@@ -1,22 +1,31 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String query;
         HashMap<String, String> documents = new HashMap<>();
 
-        documents.put("Doc1", "this is a");
-        documents.put("Doc2", "this is a test");
-        documents.put("Doc3", "Doc a");
-        documents.put("Doc4", "of a search engine");
+        for(String arg : args){
+            documents.put(arg,
+                    String.join(" ",
+                            Files.readAllLines(Path.of(arg))));
+        }
+//        documents.put("Doc1", "this is a");
+//        documents.put("Doc2", "this is a test");
+//        documents.put("Doc3", "Doc a");
+//        documents.put("Doc4", "of a search engine");
 
         ArrayList<String> docNames = Utilities.getDocNames(documents);
         ArrayList<String> docContents = Utilities.getDocContents(documents);
 
-        query = args[0];
+        query = "r e";
         System.out.printf("The search query was \"%s\"\n", query);
 
         ArrayList<String> relevantDocNames = new ArrayList<>();
