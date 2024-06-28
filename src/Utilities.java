@@ -4,6 +4,17 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class Utilities {
+
+    /**
+     * Separates each file provided in the configuration into the file's name
+     * and the file's contents and then stores and associates both in a HashMap.
+     * @param documents    The HashMap that will store the separated file names
+     *                     and file contents.
+     * @param input        The String array of the file names of files to be
+     *                     read.
+     * @throws IOException Just in case there's an error reading a file's
+     *                     contents.
+     */
     public static void readDocuments(HashMap<String, String> documents,
                                      String[] input) throws IOException {
         for(String document : input){
@@ -13,29 +24,58 @@ public class Utilities {
         }
     }
 
-    public static void getDocInfo(Set<String> info,
-                                               ArrayList<String> docInfo){
+    /**
+     * Stores all the keys in a HashMap in an ArrayList storing the same data
+     * type as the key.
+     * @param info    The set of the HashMap's keys.
+     * @param docInfo The ArrayList storing just the keys of the HashMap.
+     */
+    public static <t> void getDocInfo(Set<t> info,
+                                               ArrayList<t> docInfo){
         docInfo.addAll(info);
     }
 
-    public static void getDocInfo(Collection<String> info,
-                                  ArrayList<String> docInfo){
+    /**
+     * Stores all the values in a HashMap in an ArrayList storing the same data
+     * type as the value.
+     * @param info    The collection of the HashMap's values.
+     * @param docInfo The ArrayList storing just the values of the HashMap.
+     */
+    public static <t> void getDocInfo(Collection<t> info,
+                                      ArrayList<t> docInfo){
         docInfo.addAll(info);
     }
 
+    /**
+     * Displays the search query.
+     * @param query The query as set by the user of the program.
+     */
     public static void displayQuery(String query){
         System.out.printf("The search query was \"%s\"\n", query);
     }
 
+    /**
+     * Goes through an Arraylist of Strings and checks for the query in each
+     * String adding each String that contains the query into a new ArrayList.
+     * @param relevantDocInfo The new ArrayList for the Strings containing the
+     *                        query.
+     * @param docInfo         The ArrayList containing the Strings to be
+     *                        checked for the query.
+     * @param query           The String acting as the search parameter.
+     */
     public static void getRelevantInfo(ArrayList<String> relevantDocInfo,
                                        ArrayList<String> docInfo, String query){
         for(String info : docInfo) {
             if(info.toUpperCase().contains(query.toUpperCase())){
-                relevantDocInfo.add(info);
+                relevantDocInfo.add(info.trim());
             }
         }
     }
 
+    /**
+     * Displays all the file names containing the query.
+     * @param docNames The ArrayList of file names containing the query.
+     */
     public static void displayDocNames(ArrayList<String> docNames){
         if (!(docNames.isEmpty())) {
             System.out.println("Documents:");
@@ -45,12 +85,35 @@ public class Utilities {
         }
     }
 
+    /**
+     * Splits each String in an ArrayList of Strings into an Array of its
+     * constituent words and then stores each String Array into another
+     * ArrayList of String Arrays.
+     * @param separatedRelevantDocContents The ArrayList of String Arrays
+     *                                     containing the Strings separated
+     *                                     into their constituent words.
+     * @param relevantDocContents          The ArrayList containing the
+     *                                     Strings before they have been split.
+     */
     public static void separateRelevantDocContents(ArrayList<String[]> separatedRelevantDocContents, ArrayList<String> relevantDocContents){
         for (String relevantDocContent : relevantDocContents) {
             separatedRelevantDocContents.add(relevantDocContent.split(" "));
         }
     }
 
+    /**
+     * Filters an ArrayList of Strings representing the contents of each
+     * document to an ArrayList of the words containing the search query from
+     * each document's contents and then stores this ArrayList in another
+     * ArrayList. This process is repeated for all documents whose contents
+     * contain the query.
+     * @param filteredRelevantDocContents The ArrayList containing the
+     *                                    relevant words from each document's
+     *                                    contents.
+     * @param query                       The search parameter.
+     * @param relevantDocContents         The ArrayList storing each
+     *                                    document's contents.
+     */
     public static void filterRelevantDocContents(ArrayList<ArrayList<String>> filteredRelevantDocContents, String query, ArrayList<String> relevantDocContents){
         ArrayList<String[]> separatedRelevantDocContents =
                 new ArrayList<>();
@@ -68,6 +131,20 @@ public class Utilities {
         }
     }
 
+    /**
+     * Groups an ArrayList of Strings in a specific number using each String
+     * in the ArrayList as the first word for each grouping and then stores each
+     * grouping in a different ArrayList.
+     * @param sizeOfPreFilteredRelevantDocContents The length of the ArrayList
+     *                                             to be Grouped.
+     * @param splitNumber                          The number that the
+     *                                             Strings in the ArrayList
+     *                                             are to be grouped by.
+     * @param preFilteredRelevantDocContents       The ArrayList to be grouped.
+     * @param finalPreFilteredRelevantDocContents  The ArrayList that will
+     *                                             store the groupings of the
+     *                                             old ArrayList.
+     */
     public static void groupRelevantDocContents(int sizeOfPreFilteredRelevantDocContents, int splitNumber, ArrayList<String> preFilteredRelevantDocContents, ArrayList<String> finalPreFilteredRelevantDocContents){
         for (int i = 0; i <= (sizeOfPreFilteredRelevantDocContents - splitNumber); i++) {
             String word = "";
@@ -79,6 +156,16 @@ public class Utilities {
         }
     }
 
+    /**
+     * Associates the ArrayLists of Strings containing the file contents with
+     * the query to their document names.
+     * @param associatedRelevantDocNames  The Arraylist of Strings containing
+     *                                    the associated file names.
+     * @param filteredRelevantDocContents The ArrayList containing the file
+     *                                    contents with the query for each file.
+     * @param documents                   The HashMap mapping file names to
+     *                                    all of their contents.
+     */
     public static void associateDocNames(ArrayList<String> associatedRelevantDocNames, ArrayList<ArrayList<String>> filteredRelevantDocContents, HashMap<String, String> documents){
         for (ArrayList<String> filteredRelevantDocContent :
                 filteredRelevantDocContents) {
@@ -98,6 +185,16 @@ public class Utilities {
         }
     }
 
+    /**
+     * Displays all the file contents containing the query and the file names
+     * where the contents came from.
+     * @param filteredRelevantDocContents The ArrayList containing the file
+     *                                    contents with the query.
+     * @param associatedRelevantDocNames  The ArrayList containing the
+     *                                    associative file names from where
+     *                                    the file contents in
+     *                                    filteredRelevantDocContents came from.
+     */
     public static void displayDocContents(ArrayList<ArrayList<String>> filteredRelevantDocContents, ArrayList<String> associatedRelevantDocNames){
         if (!(filteredRelevantDocContents.isEmpty())) {
             System.out.println("Contents:");
@@ -107,6 +204,14 @@ public class Utilities {
         }
     }
 
+    /**
+     * Displays "No results found." in the case that no file names or file
+     * contents contain the query.
+     * @param relevantDocNames            An ArrayList of each document name
+     *                                    containing the query.
+     * @param filteredRelevantDocContents An ArrayList of each file's
+     *                                    contents with the query.
+     */
     public static void displayNoResults(ArrayList<String> relevantDocNames,
                                         ArrayList<ArrayList<String>> filteredRelevantDocContents){
         if((relevantDocNames.isEmpty()) && (filteredRelevantDocContents.isEmpty())){
@@ -114,20 +219,38 @@ public class Utilities {
         }
     }
 
+    /**
+     * Splits a String into an ArrayList of Strings in which each element from
+     * the ArrayList is a word from the original String.
+     * @param preFilteredRelevantDocContents The ArrayList containing each
+     *                                       word from the original String.
+     * @param relevantDocContent             The String to be split.
+     */
     public static void splitRelevantDocContents(ArrayList<String> preFilteredRelevantDocContents, String relevantDocContent){
         for(String word : relevantDocContent.split(" ")){
             preFilteredRelevantDocContents.add(word);
         }
     }
 
-    public static void chooseFromGroupedRelevantDocContents(ArrayList<String> finalPreFilteredRelevantDocContents, ArrayList<String> polishedPreFilteredRelevantDocContents, String query){
-        for(String finalPreFilteredRelevantDocContent : finalPreFilteredRelevantDocContents){
-            if(finalPreFilteredRelevantDocContent.toUpperCase().contains(query.toUpperCase())){
-                polishedPreFilteredRelevantDocContents.add(finalPreFilteredRelevantDocContent.trim());
-            }
-        }
-    }
-
+    /**
+     * Filters an ArrayList of Strings representing the contents of each
+     * document to an ArrayList of the words containing the search query from
+     * each document's contents and then stores this ArrayList in another
+     * ArrayList. This process is repeated for all documents whose contents
+     * contain the query.
+     * @param filteredRelevantDocContents The ArrayList containing the
+     *                                    relevant words from each document's
+     *                                    contents.
+     * @param query                       The search parameter.
+     * @param relevantDocContents         The ArrayList storing each
+     *                                    document's contents provided they
+     *                                    generally contain the query.
+     * @param splitNumber                 For the case where the query is more
+     *                                    than a word and needs to be
+     *                                    separated on each space, this is
+     *                                    the number of times the query is
+     *                                    split.
+     */
     public static void filterRelevantDocContents(ArrayList<ArrayList<String>> filteredRelevantDocContents, String query, ArrayList<String> relevantDocContents, int splitNumber){
         for(String relevantDocContent : relevantDocContents){
             ArrayList<String> preFilteredRelevantDocContents = new ArrayList<>();
@@ -137,11 +260,28 @@ public class Utilities {
             ArrayList<String> finalPreFilteredRelevantDocContents = new ArrayList<>();
             ArrayList<String> polishedPreFilteredRelevantDocContents = new ArrayList<>();
             Utilities.groupRelevantDocContents(sizeOfPreFilteredRelevantDocContents, splitNumber, preFilteredRelevantDocContents, finalPreFilteredRelevantDocContents);
-            Utilities.chooseFromGroupedRelevantDocContents(finalPreFilteredRelevantDocContents, polishedPreFilteredRelevantDocContents, query);
+            Utilities.getRelevantInfo(polishedPreFilteredRelevantDocContents,
+                    finalPreFilteredRelevantDocContents, query);
             filteredRelevantDocContents.add(polishedPreFilteredRelevantDocContents);
         }
     }
 
+    /**
+     * Gets all the words from the files in the configuration that contain
+     * the search query.
+     * @param filteredRelevantDocContents The ArrayList to store the words
+     *                                    from each file's contents that
+     *                                    contain the query.
+     * @param query                       The search parameter.
+     * @param relevantDocContents         The ArrayList storing each
+     *                                    document's contents provided they
+     *                                    generally contain the query.
+     * @param splitNumber                 For the case where the query is more
+     *                                    than a word and needs to be
+     *                                    separated on each space, this is
+     *                                    the number of times the query is
+     *                                    split.
+     */
     public static void getRelevantDocContents(ArrayList<ArrayList<String>> filteredRelevantDocContents, String query, ArrayList<String> relevantDocContents, int splitNumber){
         if(query.contains(" ")) {
             Utilities.filterRelevantDocContents(filteredRelevantDocContents, query, relevantDocContents, splitNumber);
@@ -152,6 +292,13 @@ public class Utilities {
         }
     }
 
+    /**
+     * Searches for a query in a list of files.
+     * @param query        The search parameter.
+     * @param args         The Array of files to be searched.
+     * @throws IOException Just in case there's an error reading a file's
+     *                     contents.
+     */
     public static void searchQuery(String query, String[] args) throws IOException {
         int splitNumber = query.split(" ").length;
 
