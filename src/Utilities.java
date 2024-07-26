@@ -241,9 +241,7 @@ public class Utilities {
                 System.out.println("- " + associatedRelevantDocNames.get(i) + " " + filteredRelevantDocContents.get(i));
             }
             for(ArrayList<String> filteredRelevantDocContent : filteredRelevantDocContents) {
-                for(String filteredRelevantDocContentWord : filteredRelevantDocContent) {
-                    noOfDocContentFound++;
-                }
+                noOfDocContentFound += filteredRelevantDocContent.size();
             }
             System.out.println(noOfDocContentFound + " RESULTS FOUND.");
         }
