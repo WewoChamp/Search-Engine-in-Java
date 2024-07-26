@@ -330,12 +330,13 @@ public class Utilities {
 
     /**
      * Searches for a query in a list of files.
-     * @param query        The search parameter.
-     * @param args         The Array of files to be searched.
-     * @throws IOException Just in case there's an error reading a file's
-     *                     contents.
+     * @param query          The search parameter.
+     * @param folder         The folder of files to be searched.
+     * @throws IOException   Just in case there's an error reading a file's
+     *                       contents.
      */
-    public static void searchQuery(String query, String[] args) throws IOException {
+    public static void searchQuery(String query, String folder) throws IOException {
+        String[] args = Utilities.getFileNames(folder);
         int splitNumber = query.split(" ").length;
 
         HashMap<String, String> documents = new HashMap<>();

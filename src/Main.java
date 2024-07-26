@@ -13,7 +13,6 @@
  */
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -45,8 +44,7 @@ public class Main {
             System.out.println(
                     "***************************************************************************************");
 
-            String[] fileNames = Utilities.getFileNames(folder);
-            Utilities.searchQuery(query, fileNames);
+            Utilities.searchQuery(query, folder);
 
             System.out.println(
                     "***************************************************************************************");
