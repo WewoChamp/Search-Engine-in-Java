@@ -114,10 +114,12 @@ public class Utilities {
      */
     public static void displayDocNames(ArrayList<String> docNames){
         if (!(docNames.isEmpty())) {
+            int noOfDocsFound = docNames.size();
             System.out.println("Documents:");
             for (String docName : docNames) {
                 System.out.println("- " + docName);
             }
+            System.out.println(noOfDocsFound + " DOCUMENTS FOUND.");
         }
     }
 
@@ -233,10 +235,17 @@ public class Utilities {
      */
     public static void displayDocContents(ArrayList<ArrayList<String>> filteredRelevantDocContents, ArrayList<String> associatedRelevantDocNames){
         if (!(filteredRelevantDocContents.isEmpty())) {
+            int noOfDocContentFound = 0;
             System.out.println("Contents:");
             for (int i = 0; i < filteredRelevantDocContents.size(); i++) {
                 System.out.println("- " + associatedRelevantDocNames.get(i) + " " + filteredRelevantDocContents.get(i));
             }
+            for(ArrayList<String> filteredRelevantDocContent : filteredRelevantDocContents) {
+                for(String filteredRelevantDocContentWord : filteredRelevantDocContent) {
+                    noOfDocContentFound++;
+                }
+            }
+            System.out.println(noOfDocContentFound + " RESULTS FOUND.");
         }
     }
 
