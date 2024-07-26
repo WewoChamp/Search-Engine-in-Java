@@ -31,7 +31,8 @@ public class Utilities {
                 }
             }
         }catch(Exception e){
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error: [" + e.getMessage() + "] is an " +
+                    "invalid path!");
         }
         String[] fileNames = new String[fileList.size()];
         for(int i = 0; i < fileNames.length; i++){

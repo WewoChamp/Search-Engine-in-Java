@@ -31,7 +31,7 @@ public class Main {
 
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter the pathname of the folder you would like " +
-                    "to search in (Pathname must not contain spaces): ");
+                    "to search in: ");
             //Please note that a sample input folder has been provided to
             //test the program (You could just copy the input folder's path).
             String folder = scanner.nextLine();
