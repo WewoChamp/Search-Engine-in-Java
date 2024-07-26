@@ -49,10 +49,11 @@ public class Main {
             System.out.println(
                     "***************************************************************************************");
 
-            System.out.println("Would you like to search again? (Y/N)");
+            System.out.println("Would you like to search again? (Y/N): ");
             Utilities.choice = scanner.nextLine().trim().toUpperCase();
             while (!Utilities.choice.equals("Y") && !Utilities.choice.equals("N")) {
-                System.out.println("Please enter \"Y\" for yes or \"N\" for no.");
+                System.out.println("Please enter \"Y\" for yes or \"N\" for " +
+                        "no: ");
                 Utilities.choice = scanner.nextLine().trim().toUpperCase();
             }
         }
