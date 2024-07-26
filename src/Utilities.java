@@ -1,9 +1,44 @@
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Utilities {
+
+    public static String choice = "Y";
+
+    /**
+     * Gets all the filenames from the given folder and stores them in a String
+     * Array.
+     * @param folderName    The folder containing the files to be searched.
+     * @return              Returns a String Array of all the file names in
+     *                      the folder
+     * @throws IOException  In case there's an error while reading the paths
+     *                      within the folder
+     */
+    public static String[] getFileNames (String folderName) throws IOException {
+        ArrayList<String> fileList = new ArrayList<>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(folderName))) {
+            for (Path path : stream) {
+                if (!Files.isDirectory(path)) {
+                    if(path.toString().endsWith(".txt")) {
+                        fileList.add(path.toString());
+                    }
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        String[] fileNames = new String[fileList.size()];
+        for(int i = 0; i < fileNames.length; i++){
+            fileNames[i] = fileList.get(i);
+        }
+        return fileNames;
+    }
 
     /**
      * Separates each file provided in the configuration into the file's name

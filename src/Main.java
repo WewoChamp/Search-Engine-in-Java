@@ -13,16 +13,50 @@
  */
 
 import java.io.IOException;
+import java.util.Objects;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String query = "is b"; //Set the query to the text you would like
-                              //to search for in the list of files in the
-                              //configuration
-                              //You may add more text files to the list
-                              //and name them whatever you want, but the files
-                              //need to be compatible text files ie. tsv and txt
-                              //files and need to be added to the input folder
-        Utilities.searchQuery(query, args);
+        while(Utilities.choice.equals("Y")) {
+            System.out.println("********************************");
+            System.out.println("Document Search Engine");
+            System.out.println("********************************");
+            System.out.println("Note:");
+            System.out.println("- Only txt files can be searched " +
+                    "through at the moment!");
+
+            System.out.println(
+                    "***************************************************************************************");
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter the pathname of the folder you would like " +
+                    "to search in (Pathname must not contain spaces): ");
+            //Please note that a sample input folder has been provided to
+            //test the program (You could just copy the input folder's path).
+            String folder = scanner.nextLine();
+
+            System.out.println(
+                    "***************************************************************************************");
+
+            System.out.println("Search: ");
+            String query = scanner.nextLine();
+
+            System.out.println(
+                    "***************************************************************************************");
+
+            String[] fileNames = Utilities.getFileNames(folder);
+            Utilities.searchQuery(query, fileNames);
+
+            System.out.println(
+                    "***************************************************************************************");
+
+            System.out.println("Would you like to search again? (Y/N)");
+            Utilities.choice = scanner.nextLine().trim().toUpperCase();
+            while (!Utilities.choice.equals("Y") && !Utilities.choice.equals("N")) {
+                System.out.println("Please enter \"Y\" for yes or \"N\" for no.");
+                Utilities.choice = scanner.nextLine().trim().toUpperCase();
+            }
+        }
     }
 }
